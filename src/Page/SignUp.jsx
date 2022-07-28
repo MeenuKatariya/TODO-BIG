@@ -50,9 +50,9 @@ export const SignUp = () => {
       method:"post",
       url:"https://masai-api-mocker.herokuapp.com/auth/register",
       data:signupData,
-      headers: { 
-        'Content-Type': 'application/json'
-      }
+      // headers: { 
+      //   'Content-Type': 'application/json'
+      // }
     }).then(res=>{
       console.log(res.data)
       dispatch(signupSuccess())

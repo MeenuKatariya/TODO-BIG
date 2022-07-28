@@ -16,7 +16,7 @@ export const Login = () => {
   const {password,username}=loginData
   const dispatch=useDispatch()
   const navigate=useNavigate()
-  const token=useSelector(state=>state.token)
+  const token=useSelector(state=>state.auth.token)
   // console.log(token)
 
   // const arr=Object.keys(signupData)

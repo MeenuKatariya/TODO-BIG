@@ -35,14 +35,14 @@ export const NewTask=()=>{
     const handleCreate=()=>{
         console.log("hello")
         let tags=[]
+        console.log(checkState)
         for(const key in checkState)
         {
-           if(Object.hasOwnProperty(checkState,key)){
-            const element=checkState[key];
-            if(element){
+           
+            if(checkState[key]){
                 tags.push(key)
             }
-           } 
+ 
         }
         console.log(tags)
        
@@ -68,6 +68,7 @@ export const NewTask=()=>{
             subTask:subTask
 
         }
+        console.log(obj)
         dispatch(addTasks(obj))
     }
 
@@ -107,7 +108,7 @@ export const NewTask=()=>{
         </div>
         <div>
             {/* <SubTaskAdder   /> */}
-            <SubTaskAdder  />
+            <SubTaskAdder  subTask={subTask} setSubTask={setSubTask} />
             <br />
             <div   >
                 <Button onClick={handleCreate} >Create Task</Button>

@@ -74,7 +74,7 @@ export const reducer=(state=initialState,{type,payload})=>{
                             }
 
         default:
-            break
+           return state
   }
  
 }

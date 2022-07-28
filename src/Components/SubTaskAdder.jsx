@@ -3,8 +3,8 @@ import {v4 as uuid} from "uuid"
 import { Input,Button } from "@chakra-ui/react";
 import { NewTask } from '../Page/NewTaskPage';
 
-export const SubTaskAdder = () => {
-  const [SubTask,SetSubTask]=React.useState([])
+export const SubTaskAdder = ({subTask,setSubTask}) => {
+  // const [SubTask,SetSubTask]=React.useState([])
     const [text,setText]=React.useState("")
 
     const handleChange=(e)=>{
@@ -12,13 +12,13 @@ export const SubTaskAdder = () => {
     }
 
     const handleCheckChange=(id)=>{
-     const updatedList=[...SubTask.map((el)=>el.id==id ? {...el,status:!el.status}: el)]
-      SetSubTask(updatedList)
+     const updatedList=[...subTask.map((el)=>el.id==id ? {...el,status:!el.status}: el)]
+      setSubTask(updatedList)
     }
 
     const handleDelete=(id)=>{
-        const updated=[...SubTask.filter((el)=>el.id !==id)]
-        SetSubTask(updated);
+        const updated=[...subTask.filter((el)=>el.id !==id)]
+        setSubTask(updated);
     }
 
     const handleSubmit=()=>{
@@ -28,7 +28,7 @@ export const SubTaskAdder = () => {
             id:uuid()
         }
         // console.log(obj)
-     SetSubTask(prev=>(
+     setSubTask(prev=>(
         [...prev,obj]
      ))
     }
@@ -42,7 +42,7 @@ export const SubTaskAdder = () => {
      </div>
        {/* <div style={{display:"flex", justifyContent:"space-evenly"  ,width:"200"}}> */}
        {
-         SubTask.map((el)=>{
+         subTask.map((el)=>{
              return(
 
                <div  style={{display:"flex", justifyContent:"space-evenly"}} className='subTaskItem' key={el.id}>

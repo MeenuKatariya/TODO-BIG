@@ -9,3 +9,4 @@ const rootReducer=combineReducers({
 const apply=compose(applyMiddleware(thunk))
 
 export const store=createStore(rootReducer,apply)
+

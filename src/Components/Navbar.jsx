@@ -27,7 +27,7 @@ export default function Nav() {
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Link to={"/"}>Home</Link>
-          <Link to={"/signup"}>SignUp</Link>
+          {/* <Link to={"/signup"}>SignUp</Link> */}
           <Link to={"/login"}>Login</Link>
           <Link to={"newTask"}>New Task</Link>
 

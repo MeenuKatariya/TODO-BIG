@@ -1,102 +1,57 @@
-import React from 'react'
-import axios from 'axios'
-import { LoginError, LoginLoading, LoginSuccess } from '../Store/Auth/Action'
-import { useDispatch,useSelector } from 'react-redux/es/exports'
-import { useNavigate } from 'react-router-dom'
-import { Box, Button, Center, Heading, Input, TagLabel, Text } from '@chakra-ui/react'
-const initialState={
-  Username: "",
-  Password: "",
+import React from 'react';
+import { useDispatch } from 'react-redux/es/exports';
+import { toggleAuth } from "../Store/Auth/Action";
+import {useNavigate} from 'react-router-dom';
 
- 
-}
+function Login() {
+    const [email, setEmail] = React.useState("");
+    const [password, setPassword] = React.useState("");
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-export const Login = () => {
-  const [loginData,setLoginData]=React.useState(initialState)
-  const {password,username}=loginData
-  const dispatch=useDispatch()
-  const navigate=useNavigate()
-  const token=useSelector(state=>state.auth.token)
-  // console.log(token)
-
-  // const arr=Object.keys(signupData)
-  // console.log(arr)
-  
-  
-
-  const handleChange=(el)=>{
-    const {name,value}=el.target;
-    setLoginData(prev=>({...prev,[name]: value}))
-  }
-
-
- 
-   
-
-  
-   
-  const handleLogin=()=>{
-    let isValid=true;
-    Object.values(loginData).forEach(el=>{
-      if(!el)
-      {
-        isValid=false
-      }
-    })
-    if(!isValid)
-    {
-      alert("Please fill all the values")
+    const login = async(data) => {
+        try {
+            let res = await fetch (`https://reqres.in/api/login`,{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            });
+            let response = await res.json();
+            return response;
+        } catch (error) {
+            console.log(error)
+        }
     }
-    dispatch(LoginLoading())
-    axios({
-      method:"post",
-      url:"https://masai-api-mocker.herokuapp.com/auth/login",
-      data:loginData
-    }).then(res=>{
-      console.log(res.data.token)
-      dispatch(LoginSuccess(res.data.token))
-     navigate("/")
 
-    
+    const handleLogin = (e) => {
+        e.preventDefault();
+        // console.log(email, password);
+        let data = {
+            email: email,
+            password: password
+        }
+        // console.log(data);
+        login(data).then((res)=>{
+            if(res.token){
+                dispatch(toggleAuth());
+                navigate('/');
+            }
+        });
 
-   })
-    .catch(res=>{
-    //   console.log("error")
-    dispatch(LoginError())
-
-    })
-  }
-  
-
- 
- 
-
-      
+    }
   return (
-    <Center>
-      <Box>
-
-      <Heading  marginLeft={20}   paddingBottom={10}  color={"red"}>Login</Heading>
-        <h1></h1>
-      {
-        Object.keys(loginData).map((el)=>{
-          return(
-            <div>
-               <Box>
-                <label>{el} </label> <Input type="text"  key={el} placeholder={el}  name={el} value={loginData[el]} onChange={handleChange}/> 
-             </Box>
-
-            </div>
-          )})}
-          <br />
-          <Button marginLeft={20} onClick={handleLogin}>
-            Login
-          </Button>
-
-
-              </Box>
-        
-      
-    </Center>
+    <div>
+        <form onSubmit={handleLogin}>
+            <label>Email</label>
+            <input type="email" value={email} onChange={(e)=>{setEmail(e.target.value)}} />
+            <label>Password</label>
+            <input type="password" value={password} onChange={(e)=>{setPassword(e.target.value)}} />
+            <input type="submit" value='Login' />
+        </form>
+    </div>
   )
 }
+
+export default Login

@@ -1,62 +1,19 @@
-import { Login_ERROR, Login_LOADING, Login_SUCCESS, Logout, SIGNUP_ERROR, SIGNUP_LOADING, SIGNUP_SUCCESS } from "./ActionType"
-// import { LOGIN_ERROR, LOGIN_LOADING, LOGIN_SUCCESS } from "./Action Type"
+import { TOGGLE_AUTH } from "./Action";
 
-const initialState={
-    loading:false,
-    error:false,
-    token:false,
-    message:""
+const initialState = {
+    isLoggedIn: false,
 }
 
-export const reducer=(state=initialState,{type,payload})=>{
-    switch(type){
-        case SIGNUP_LOADING:
-              return{
+ export const reducer = (state = initialState, action) => {
+    switch(action.type) {
+        case TOGGLE_AUTH :
+            return {
                 ...state,
-                loading:true
-              }
-
-        case SIGNUP_SUCCESS:
-                return{
-                  ...state,
-                  loading:false,
-                  error:false
-              
-                } 
-                
-                case SIGNUP_ERROR:
-                    return{
-                      ...state,
-                      loading:false,
-                      error:true
-                    } 
-                    
-
-                    case Login_LOADING:
-                        return{
-                          ...state,
-                          loading:true
-                        }
-          
-                  case Login_SUCCESS:
-                          return{
-                            ...state,
-                            loading:false,
-                            error:false,
-                          token:!state.token
-                          } 
-                          
-                          case Login_ERROR:
-                              return{
-                                ...state,
-                                loading:false,
-                                error:true
-                              } 
-                              // case Logout:
-                              //   return{
-                              //     ...initialState
-                              //   }          
-                    default:
-                        return state
+                isLoggedIn: !state.isLoggedIn,
+            }
+        default:
+            return state;
     }
 }
+
+// export { loginReducer };

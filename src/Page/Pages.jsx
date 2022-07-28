@@ -2,7 +2,7 @@ import React from 'react'
 import {Route,Routes} from "react-router-dom"
 import { SignUp } from './SignUp'
 import {Home} from './Home'
-import {Login} from "./Login"
+import Login from "./Login"
 import { Private } from '../Components/Private'
 import { NewTask } from './NewTaskPage'
 

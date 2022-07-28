@@ -1,6 +1,5 @@
 import React from 'react'
 import axios from 'axios'
-import { signupError, signupLoading, signupSuccess } from '../Store/Auth/Action'
 import { useDispatch ,useSelector} from 'react-redux'
 import {Navigate} from "react-router-dom"
 import { signupReq } from '../Store/Auth/Action'
@@ -42,7 +41,7 @@ export const SignUp = () => {
     {
       alert("Please fill all the values")
     }
-    dispatch(signupLoading())
+    // dispatch(signupLoading())
     
 
 
@@ -55,11 +54,11 @@ export const SignUp = () => {
       // }
     }).then(res=>{
       console.log(res.data)
-      dispatch(signupSuccess())
+      // dispatch(signupSuccess())
       
    })
     .catch(res=>{
-      dispatch(signupError())
+      // dispatch(signupError())
     })
 
   //  dispatch(signupReq(signupData))

@@ -17,18 +17,23 @@ import {
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const isLoggedIn=useSelector(state=>state.auth.isLoggedIn)
+  console.log(isLoggedIn)
   return (
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
           <Link to={"/"}>Home</Link>
           {/* <Link to={"/signup"}>SignUp</Link> */}
-          <Link to={"/login"}>Login</Link>
+          {
+            isLoggedIn?<p >LogOut</p>:<Link to={"/login"}>Login</Link>
+          }
           <Link to={"newTask"}>New Task</Link>
 
           <Flex alignItems={'center'}>
